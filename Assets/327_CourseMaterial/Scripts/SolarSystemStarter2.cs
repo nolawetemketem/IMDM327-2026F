@@ -4,12 +4,12 @@
 using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
-public class SolarSystemStarter : MonoBehaviour
+public class SolarSystemStarter2 : MonoBehaviour
 {
     // These components can be attached independently.
     public GameObject camera; 
     public int cameraDistance = 3000;
-    public long distanceAndMassScale = 1000000000; // tune this — adjust based on your actual data units
+    public long distanceScale = 1000000000; // tune this — adjust based on your actual data units
     public long radiusScale = 500000; 
     public int speed = 1000000;
     DataCSV solarCSV;
@@ -55,7 +55,6 @@ public class SolarSystemStarter : MonoBehaviour
             Debug.Log("First body: " + solarBodiesJSON[0].name + ", mass: " + solarBodiesJSON[0].mass);
         }
 
-
         // GameObject array to hold the planets in the simulation.
         planetProperties = new PlanetProperty[numberOfSpheres];
         for (int i = 0; i < numberOfSpheres; i++)
@@ -71,21 +70,19 @@ public class SolarSystemStarter : MonoBehaviour
             // What is missing here? You need to set the initial position and velocity of each planet based on the loaded data.
             // ***WRITE YOUR CODE HERE***
             float theta = Random.Range(0, 2 * Mathf.PI);          
-            float r = (float) (solarBodiesJSON[i].distance / distanceAndMassScale);
-            float size = Mathf.Clamp((float)(solarBodiesJSON[i].radius / radiusScale), 0, radiusScale/ 250000);
-            float init_vel = solarBodiesJSON[i].initial_velocity / distanceAndMassScale;  
-
+            float r = solarBodiesJSON[i].distance ;
+            float init_vel = solarBodiesJSON[i].initial_velocity;  
+            float size = Mathf.Clamp((float)(solarBodiesJSON[i].radius / radiusScale), 0, radiusScale/25000);
            
-
             planetProperties[i].planet.name = solarBodiesJSON[i].name;
-            planetProperties[i].mass = solarBodiesJSON[i].mass / distanceAndMassScale; 
+            planetProperties[i].mass = solarBodiesJSON[i].mass; 
             planetProperties[i].radius = size;
-            planetProperties[i].planet.transform.position = new UnityEngine.Vector3(r * Mathf.Cos(theta), 0, r * Mathf.Sin(theta));
+            planetProperties[i].actualPosition = new UnityEngine.Vector3(r * Mathf.Cos(theta), 0, r * Mathf.Sin(theta));
             planetProperties[i].planet.transform.localScale = new UnityEngine.Vector3(size,size,size);
             planetProperties[i].velocity = new UnityEngine.Vector3(init_vel * Mathf.Cos(theta + Mathf.PI/2), 0, init_vel * Mathf.Sin(theta + Mathf.PI/2));
-
-            //  Debug.Log(solarBodiesJSON[i].name + ": " + solarBodiesJSON[i].name + " -- " +  planetProperties[i].velocity) ;
-
+            // Debug.Log(solarBodiesJSON[i].name + ": " + solarBodiesJSON[i].name + " -- " +  planetProperties[i].velocity) ;
+            planetProperties[i].planet.transform.position = new UnityEngine.Vector3((r / distanceScale) * Mathf.Cos(theta), 0, (r / distanceScale) * Mathf.Sin(theta));
+        
 
             // + This is just pretty trails
             TrailRenderer trailRenderer =  planetProperties[i].planet.AddComponent<TrailRenderer>();
@@ -126,12 +123,13 @@ public class SolarSystemStarter : MonoBehaviour
         for (int i = 1; i < numberOfSpheres; i++)
         {
             UnityEngine.Vector3 force = UnityEngine.Vector3.zero;
-            UnityEngine.Vector3 r_i = planetProperties[i].planet.transform.position;
+            UnityEngine.Vector3 r_i = planetProperties[i].actualPosition;
+            
             // Something
             for ( int j = 0; j < numberOfSpheres; j++)
             {
                 if (i != j) {
-                    UnityEngine.Vector3 r_j = planetProperties[j].planet.transform.position, r_ij = r_j - r_i;
+                    UnityEngine.Vector3 r_j = planetProperties[j].actualPosition, r_ij = r_j - r_i;
                     force = force + (CalculateGravity(r_ij, planetProperties[i].mass, planetProperties[j].mass) / planetProperties[i].mass);
                 }
             }
@@ -141,8 +139,12 @@ public class SolarSystemStarter : MonoBehaviour
         // 02. Loop through each body to update its velocity and position based on the calculated acceleration
        for (int i = 1; i < numberOfSpheres; i++)
         {
+
             planetProperties[i].velocity = planetProperties[i].velocity + planetProperties[i].acceleration * Time.fixedDeltaTime * speed;
-            planetProperties[i].planet.transform.position = planetProperties[i].planet.transform.position + planetProperties[i].velocity * Time.fixedDeltaTime * speed;
+
+            planetProperties[i].actualPosition = planetProperties[i].actualPosition + planetProperties[i].velocity * Time.fixedDeltaTime * speed;
+            planetProperties[i].planet.transform.position = planetProperties[i].planet.transform.position  + (planetProperties[i].velocity / distanceScale) * Time.fixedDeltaTime * speed;
+    
         }
     } 
 
@@ -150,7 +152,7 @@ public class SolarSystemStarter : MonoBehaviour
     private UnityEngine.Vector3 CalculateGravity(UnityEngine.Vector3 distanceVector, float m1, float m2)
     {
         UnityEngine.Vector3 gravity = UnityEngine.Vector3.zero; // note this is also Vector3
-        gravity = (G * distanceAndMassScale / Mathf.Pow(distanceAndMassScale, 3)) * (m1 * m2 / distanceVector.sqrMagnitude) * distanceVector.normalized;
+        gravity = G * (m1 * m2 / distanceVector.sqrMagnitude) * distanceVector.normalized;
         return gravity;
     }
 }
