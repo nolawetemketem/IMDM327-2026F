@@ -1855,8 +1855,8 @@ MonoBehaviour:
   - {fileID: 8127291601776993140}
   - {fileID: -1835866604154244162}
   - {fileID: 8138307427169125435}
-  - {fileID: 3578211387833014864}
-  - {fileID: 4275025790757190900}
+  - {fileID: 8640932657308874513}
+  - {fileID: 8727311566301437434}
   - {fileID: 3298164568213380209}
   - {fileID: -7382343682382298959}
   - {fileID: 7746354425518333801}
@@ -1867,7 +1867,7 @@ MonoBehaviour:
   - {fileID: 1923348927079076266}
   - {fileID: 1330991386968781117}
   - {fileID: -2436165983393813540}
-  - {fileID: 4290146230148469918}
+  - {fileID: 7748268444904772509}
   - {fileID: 6730465793224889687}
   - {fileID: -905532785698061016}
   - {fileID: -8695955201372404009}
@@ -2751,7 +2751,7 @@ MonoBehaviour:
   nameUi: 'Android XR: AR Anchor'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-anchor
-  openxrExtensionStrings: XR_ANDROID_trackables
+  openxrExtensionStrings: XR_ANDROID_trackables XR_ANDROID_device_anchor_persistence
   company: Unity Technologies
   priority: 0
   targetOpenXRApiVersion: 
@@ -3266,7 +3266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f7a7b4a7bf27d4d96b8eb673f5174e, type: 3}
   m_Name: OculusTouchControllerProximityProfile Android
   m_EditorClassIdentifier: Oculus.VR::Meta.XR.OculusTouchControllerProximityProfile
-  m_enabled: 0
+  m_enabled: 1
   nameUi: Oculus Touch Controller Proximity Interaction
   version: 0.0.1
   featureIdInternal: com.meta.openxr.feature.input.oculustouch.proximity
@@ -3314,7 +3314,7 @@ MonoBehaviour:
   nameUi: 'Android XR: AR Anchor'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-anchor
-  openxrExtensionStrings: XR_ANDROID_trackables
+  openxrExtensionStrings: XR_ANDROID_trackables XR_ANDROID_device_anchor_persistence
   company: Unity Technologies
   priority: 0
   targetOpenXRApiVersion: 
@@ -3444,7 +3444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4710975c7840e7d499bbb3757c22b0a5, type: 3}
   m_Name: MetaXRSubsampledLayout Android
   m_EditorClassIdentifier: Oculus.VR::Meta.XR.MetaXRSubsampledLayout
-  m_enabled: 0
+  m_enabled: 1
   nameUi: Meta XR Subsampled Layout
   version: 0.0.1
   featureIdInternal: com.meta.openxr.feature.subsampledLayout
@@ -3535,18 +3535,8 @@ MonoBehaviour:
   features:
   - {fileID: -4952000796976196145}
   - {fileID: -2491787981907955443}
-  - {fileID: -3699387545338494288}
-  - {fileID: 5791919576091236341}
   - {fileID: 1951018764672190297}
-  - {fileID: -667080950881108728}
-  - {fileID: -8753675243413380088}
-  - {fileID: -3754199601035557518}
   - {fileID: 2569829961061686938}
-  - {fileID: 6842182451805549457}
-  - {fileID: -5095987284665706574}
-  - {fileID: -6758403614579672219}
-  - {fileID: -6448953659737450402}
-  - {fileID: -1428043250981167149}
   - {fileID: 2287003450481494527}
   - {fileID: 8306122736625590588}
   - {fileID: 5191136607646899970}
