@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &751110412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SolarSystemStarter2
   camera: {fileID: 1186916199}
+  cameraDistance: 3000
   distanceScale: 1000000000
   radiusScale: 500000
   speed: 1000000
@@ -382,6 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SolarSystemStarter
   camera: {fileID: 1186916199}
+  cameraDistance: 3000
   distanceAndMassScale: 1000000000
   radiusScale: 1000000
   speed: 1000000
